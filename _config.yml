@@ -1,5 +1,5 @@
 ---
-title: perfect-fit
+title: Perfect Fit
 timezone: UTC
 collections:
   posts:
@@ -24,3 +24,4 @@ defaults:
   values:
     layout: page
 permalink: pretty
+tagline: This is the tagline
