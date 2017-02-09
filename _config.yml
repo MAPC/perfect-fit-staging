@@ -1,5 +1,5 @@
 ---
-title: Perfect Fit Parking
+title: MAPC’s Perfect Fit Parking Initiative
 timezone: UTC
 collections:
   posts:
@@ -24,6 +24,5 @@ defaults:
   values:
     layout: page
 permalink: pretty
-tagline: this is a test
-tagline2: to see if this section
-tagline3: works fine or not
+tagline: 'Using real data to help communities establish '
+tagline2: informed, sustainable, and economical parking policies
