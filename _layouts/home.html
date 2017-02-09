@@ -2,3 +2,9 @@
 layout: default
 ---
 
+<section id="two" class="wrapper alt style2">
+  {% assign sorted_strips = site.strips | sort: 'position' %}
+  {% for strip in sorted_strips %}
+    {% include strip.html content=strip.content title=strip.title id=strip.title image=strip.image %} 
+  {% endfor %}
+</section>
