@@ -23,6 +23,5 @@ defaults:
     type: pages
   values:
     layout: page
+tagline: Improving the way developers and planners assess parking demand
 permalink: pretty
-tagline: 'An initiative of the Metropolitan Area Planning Council to improve the way
-  developers and planners assess parking demand. '
