@@ -6,9 +6,6 @@ layout: default
   <div class="inner">
     <h2>{{site.title}}</h2>
     <p>{{site.tagline}}<br /></p>
-    <ul class="actions">
-      <li><a href="#" class="button special">Activate</a></li>
-    </ul>
   </div>
   <a href="#one" class="more scrolly">Learn More</a>
 </section>
@@ -16,7 +13,7 @@ layout: default
 <section id="one" class="wrapper style1 special">
             <div class="inner">
               <header class="major">
-                {{site.description}}
+                {{site.description | markdownify}}
               </header>
               <ul class="icons major">
                 <li><span class="icon fa-car major style1"><span class="label">Lorem</span></span></li>
