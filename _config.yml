@@ -1,9 +1,12 @@
 ---
-title: perfect-fit
+title: PERFECT FIT
 timezone: UTC
 collections:
   posts:
     title: Posts
+    output: true
+  strips:
+    title: Strips
     output: true
   uploads:
     title: Uploads
@@ -21,3 +24,4 @@ defaults:
   values:
     layout: page
 permalink: pretty
+tagline: MAPC’s Perfect Fit Parking Initiative
