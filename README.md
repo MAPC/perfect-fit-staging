@@ -6,7 +6,4 @@
 `jekyll serve`
 
 ## Deployment
-`git push heroku master`
-Go to the Siteleaf CMS and sync
-
-For content changes, manage through Siteleaf
+For deployment we are using GitHub Pages. Push to the GitHub pages branch and GitHub should automatically build the site.
