@@ -29,11 +29,9 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
     const sx = s.map(x.invert);
     circle.classed('active', (d) => { return sx[0] <= d && d <= sx[1]; });
     handle.attr('display', null).attr('transform', (d, i) => { return "translate(" + s[i] + "," + sliderHeight / 2 + ")"; });
-    console.log('sx[0]:', sx[0]);
-    console.log('sx[1]', sx[1]);
+    const filteredSliderData = sliderData.filter(d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
     d3.selectAll('.site').remove();
-    //populateMap with filtered data
-    populateMap(sliderData);
+    populateMap(filteredSliderData, projection);
   }
 }
 
@@ -116,7 +114,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
     // create an array from demandunit column
     createMap(data[0]);
-    populateMap(data[1]);
+    populateMap(data[1], projection);
     createSlider(data[1]);
   });
 });
