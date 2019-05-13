@@ -27,7 +27,7 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
     circle.classed('active', false);
   } else {
     const sx = s.map(x.invert);
-    circle.classed('active', (d) => { return sx[0] <= d && d <= sx[1]; });
+    circle.classed('active', d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
     handle.attr('display', null).attr('transform', (d, i) => { return "translate(" + s[i] + "," + sliderHeight / 2 + ")"; });
     const filteredSliderData = sliderData.filter(d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
     d3.selectAll('.site').remove();
@@ -37,6 +37,7 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
 
 function createSlider(sliderData) {
   const demandUnit = sliderData.map(object => object.demandunit);
+  const utilization = sliderData.map(object => object.utilize_p);
   const sliderSvg = d3.select('.slider');
   const sliderMargin = { top: 0, right: 70, bottom: 50, left: 70 };
   const sliderWidth = +sliderSvg.attr('width') - sliderMargin.left - sliderMargin.right;
@@ -44,7 +45,7 @@ function createSlider(sliderData) {
   const g = sliderSvg.append('g').attr('transform', `translate(${sliderMargin.left}, ${sliderMargin.top})`);
 
   const sliderX = d3.scaleLinear().domain(d3.extent(demandUnit)).range([0, sliderWidth]);
-  const sliderY = d3.randomNormal(sliderHeight / 2, sliderHeight / 8);
+  const sliderY = d3.scaleLinear().domain(d3.extent(utilization)).range([0, sliderHeight]);
 
   g.append('g')
     .attr('class', 'axis axis--x')
@@ -54,10 +55,10 @@ function createSlider(sliderData) {
   const circle = g.append('g')
     .attr('class', 'circle')
     .selectAll('circle')
-    .data(demandUnit)
+    .data(sliderData)
     .enter()
     .append('circle')
-    .attr('transform', d => `translate(${sliderX(d)}, ${sliderY()})`)
+    .attr('transform', d => `translate(${sliderX(d.demandunit)}, ${sliderY(d.utilize_p)})`)
     .attr('r', 3.5);
 
   const brush = d3.brushX()
@@ -118,9 +119,3 @@ window.addEventListener('DOMContentLoaded', () => {
     createSlider(data[1]);
   });
 });
-
-// filter map to towns we want
-// optimize geojson but removing data properties we do not need
-// Figure out fixing X axis start and end for the slider
-// Grab values the brush has selected
-// show on map only selected/filtered values
