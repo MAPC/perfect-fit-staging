@@ -4,7 +4,6 @@ const projection = d3.geoAlbers()
   .center([0, 42.413])
   .translate([960 / 2, 500 / 2]);
 
-
 function populateMap(data) {
   const parkingMap = d3.select('.parking-map');
   parkingMap.append('g')
@@ -28,7 +27,7 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
   } else {
     const sx = s.map(x.invert);
     circle.classed('active', d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
-    handle.attr('display', null).attr('transform', (d, i) => { return "translate(" + s[i] + "," + sliderHeight / 2 + ")"; });
+    handle.attr('display', null).attr('transform', (d, i) => `translate(${s[i]}, ${sliderHeight / 2})`);
     const filteredSliderData = sliderData.filter(d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
     d3.selectAll('.site').remove();
     populateMap(filteredSliderData, projection);
@@ -110,12 +109,17 @@ window.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     d3.json('/assets/data/ma-munis.json'),
     d3.csv('/assets/data/perfect_fit_parking_data.csv'),
+    d3.csv('/assets/data/perfect_fit_parking_data_round_2.csv'),
   ]).then((data) => {
-    // const surveyedMunicipalities = ['ARLINGTON', 'CHELSEA', 'EVERETT', 'MALDEN', 'MELROSE'];
-    // const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
-    // create an array from demandunit column
     createMap(data[0]);
-    populateMap(data[1], projection);
-    createSlider(data[1]);
+    data[2].forEach((object) => {
+      object.utilize_p = object.util_rate;
+      object.demandunit = object.park_dem;
+      object.longitude = object.y_coord;
+      object.latitude = object.x_coord;
+    });
+    const combinedData = data[1].concat(data[2]);
+    populateMap(combinedData, projection);
+    createSlider(combinedData);
   });
 });
