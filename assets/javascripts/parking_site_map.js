@@ -39,7 +39,7 @@ function createSlider(sliderData) {
   const utilization = sliderData.map(object => object.utilize_p);
   const sliderSvg = d3.select('.slider');
   const sliderMargin = { top: 0, right: 70, bottom: 50, left: 70 };
-  const sliderWidth = +sliderSvg.attr('width') - sliderMargin.left - sliderMargin.right;
+  const sliderWidth = +sliderSvg.style('width').slice(0,-2) - sliderMargin.left - sliderMargin.right;
   const sliderHeight = +sliderSvg.attr('height') - sliderMargin.top - sliderMargin.bottom;
   const g = sliderSvg.append('g').attr('transform', `translate(${sliderMargin.left}, ${sliderMargin.top})`);
 
