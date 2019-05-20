@@ -1,7 +1,7 @@
 const projection = d3.geoAlbers()
   .scale(180000)
   .rotate([71.057, 0])
-  .center([0, 42.413])
+  .center([0, 42.35])
   .translate([960 / 2, 500 / 2]);
 
 function populateMap(data) {
@@ -86,7 +86,7 @@ function createSlider(sliderData) {
   gBrush.call(brush.move, [0.3, 0.5].map(sliderX));
 }
 
-function createMap(data) {
+function createTownMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
@@ -94,15 +94,45 @@ function createMap(data) {
     .data(data.features)
     .enter()
     .append('path')
-    .attr('fill', '#ccc')
-    .attr('stroke', '#333')
+    .attr('fill', '#eee')
+    .attr('stroke', '#999')
     .attr('d', path)
     .on('mouseover', (d) => {
-      d3.select('h2').text(d.properties.town);
+      d3.select('.municipality-name').text(d.properties.town);
     })
     .on('mouseout', () => {
-      d3.select('h2').text('Hover to see town name.');
+      d3.select('.municipality-name').text('Hover to see municipality name.');
     });
+}
+
+function createTrainMap(data) {
+  const parkingMap = d3.select('.parking-map');
+  const path = d3.geoPath().projection(projection);
+  parkingMap.append('g')
+    .selectAll('path')
+    .data(data.features)
+    .enter()
+    .append('path')
+    .attr('fill', 'none')
+    .attr('stroke', '#80276c')
+    .attr('stroke-width', '3')
+    .attr('stroke-opacity', 0.6)
+    .attr('d', path);
+}
+
+function createRapidTransitMap(data) {
+  const parkingMap = d3.select('.parking-map');
+  const path = d3.geoPath().projection(projection);
+  parkingMap.append('g')
+    .selectAll('path')
+    .data(data.features)
+    .enter()
+    .append('path')
+    .attr('fill', 'none')
+    .attr('stroke', d => d.properties.LINE)
+    .attr('stroke-width', '3')
+    .attr('stroke-opacity', 0.4)
+    .attr('d', path);
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -110,8 +140,12 @@ window.addEventListener('DOMContentLoaded', () => {
     d3.json('/assets/data/ma-munis.json'),
     d3.csv('/assets/data/perfect_fit_parking_data.csv'),
     d3.csv('/assets/data/perfect_fit_parking_data_round_2.csv'),
+    d3.json('/assets/data/mbta-commuter-rail-lines.json'),
+    d3.json('/assets/data/mbta-rapid-transit.json'),
   ]).then((data) => {
-    createMap(data[0]);
+    createTownMap(data[0]);
+    createTrainMap(data[3]);
+    createRapidTransitMap(data[4]);
     data[2].forEach((object) => {
       object.utilize_p = object.util_rate;
       object.demandunit = object.park_dem;
