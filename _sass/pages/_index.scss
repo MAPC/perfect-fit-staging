@@ -35,3 +35,25 @@
 .reveal {
   height: 100%;
 }
+
+.parking-table {
+  border-collapse: collapse;
+  width: 100%;
+
+  &--header {
+    background: $table_header-background;
+    color: $table_header-text;
+  }
+
+  &--header-cell {
+    padding: 1rem;
+  }
+
+  &--data-row:nth-of-type(odd) {
+    background: $table_data-background_stripe;
+  }
+
+  &--data-cell {
+    padding: 1rem;
+  }
+}

@@ -12,8 +12,8 @@ function populateMap(data) {
     .enter()
     .append('circle')
     .attr('class', 'site')
-    .attr('cx', d => projection([d.longitude, d.latitude])[0])
-    .attr('cy', d => projection([d.longitude, d.latitude])[1])
+    .attr('cx', d => projection([d.y_coord, d.x_coord])[0])
+    .attr('cy', d => projection([d.y_coord, d.x_coord])[1])
     .attr('r', '4px')
     .attr('fill', 'blue');
 }
@@ -26,24 +26,29 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
     circle.classed('active', false);
   } else {
     const sx = s.map(x.invert);
-    circle.classed('active', d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
+    circle.classed('active', d => sx[0] <= d.park_dem && d.park_dem <= sx[1]);
     handle.attr('display', null).attr('transform', (d, i) => `translate(${s[i]}, ${sliderHeight / 2})`);
-    const filteredSliderData = sliderData.filter(d => sx[0] <= d.demandunit && d.demandunit <= sx[1]);
+    const filteredSliderData = sliderData.filter(d => sx[0] <= d.park_dem && d.park_dem <= sx[1]);
     d3.selectAll('.site').remove();
     populateMap(filteredSliderData, projection);
+    d3.selectAll('thead').remove();
+    d3.selectAll('tbody').remove();
+    d3.selectAll('tr').remove();
+    d3.selectAll('td').remove();
+    createTable(filteredSliderData);
   }
 }
 
 function createSlider(sliderData) {
-  const demandUnit = sliderData.map(object => object.demandunit);
-  const utilization = sliderData.map(object => object.utilize_p);
+  const park_dem = sliderData.map(object => object.park_dem);
+  const utilization = sliderData.map(object => object.util_rate);
   const sliderSvg = d3.select('.slider');
   const sliderMargin = { top: 0, right: 70, bottom: 50, left: 70 };
   const sliderWidth = +sliderSvg.style('width').slice(0,-2) - sliderMargin.left - sliderMargin.right;
   const sliderHeight = +sliderSvg.attr('height') - sliderMargin.top - sliderMargin.bottom;
   const g = sliderSvg.append('g').attr('transform', `translate(${sliderMargin.left}, ${sliderMargin.top})`);
 
-  const sliderX = d3.scaleLinear().domain(d3.extent(demandUnit)).range([0, sliderWidth]);
+  const sliderX = d3.scaleLinear().domain(d3.extent(park_dem)).range([0, sliderWidth]);
   const sliderY = d3.scaleLinear().domain(d3.extent(utilization)).range([0, sliderHeight]);
 
   g.append('g')
@@ -57,7 +62,7 @@ function createSlider(sliderData) {
     .data(sliderData)
     .enter()
     .append('circle')
-    .attr('transform', d => `translate(${sliderX(d.demandunit)}, ${sliderY(d.utilize_p)})`)
+    .attr('transform', d => `translate(${sliderX(d.park_dem)}, ${sliderY(d.util_rate)})`)
     .attr('r', 3.5);
 
   const brush = d3.brushX()
@@ -135,25 +140,60 @@ function createRapidTransitMap(data) {
     .attr('d', path);
 }
 
+function createTable(data) {
+  const table = d3.select('.parking-table');
+  const headers = table.append('thead').selectAll('tr')
+    .data([['Site Name',
+      'Municipality',
+      'Total Spaces',
+      'Total Apt. Units by Bedroom',
+      'Total Condo Units by Bedroom',
+      'Total Subsidized Units by Bedroom',
+      'Walk Score',
+      'Total Accessible Employment',
+      'Utilization',
+      'Demand']]).enter()
+    .append('tr')
+    .attr('class', 'parking-table--header');
+  headers.selectAll('td')
+    .data(row => row)
+    .enter()
+    .append('td')
+    .text(d => d)
+    .attr('class', 'parking-table--header-cell');
+  const rows = table.append('tbody').selectAll('tr')
+    .data(data).enter()
+    .append('tr')
+    .attr('class', 'parking-table--data-row');
+  rows.selectAll('td')
+    .data(row => [row.site,
+      row.muni,
+      row.tot_space,
+      row.rnt_unit_t,
+      row.cnd_unit_t,
+      row.sub_unit_t,
+      row.walk_score,
+      row.b_umn_t30jobs,
+      row.util_rate,
+      row.park_dem])
+    .enter()
+    .append('td')
+    .text(d => d)
+    .attr('class', 'parking-table--data-cell');
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     d3.json('/assets/data/ma-munis.json'),
     d3.csv('/assets/data/perfect_fit_parking_data.csv'),
-    d3.csv('/assets/data/perfect_fit_parking_data_round_2.csv'),
     d3.json('/assets/data/mbta-commuter-rail-lines.json'),
     d3.json('/assets/data/mbta-rapid-transit.json'),
   ]).then((data) => {
     createTownMap(data[0]);
-    createTrainMap(data[3]);
-    createRapidTransitMap(data[4]);
-    data[2].forEach((object) => {
-      object.utilize_p = object.util_rate;
-      object.demandunit = object.park_dem;
-      object.longitude = object.y_coord;
-      object.latitude = object.x_coord;
-    });
-    const combinedData = data[1].concat(data[2]);
-    populateMap(combinedData, projection);
-    createSlider(combinedData);
+    createTrainMap(data[2]);
+    createRapidTransitMap(data[3]);
+    createTable(data[1]);
+    populateMap(data[1], projection);
+    createSlider(data[1]);
   });
 });
