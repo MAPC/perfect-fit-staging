@@ -152,10 +152,12 @@ function createTable(data) {
     Utilization: 'util_rate',
     Demand: 'park_dem',
   };
-  const headers = table.append('thead').selectAll('tr')
+  const headers = table.append('thead')
+    .attr('class', 'parking-table--header')
+    .selectAll('tr')
     .data([Object.keys(headerNames)]).enter()
     .append('tr')
-    .attr('class', 'parking-table--header');
+    .attr('class', 'parking-table--header-row');
   headers.selectAll('td')
     .data(row => row)
     .enter()
