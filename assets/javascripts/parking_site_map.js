@@ -142,17 +142,18 @@ function createRapidTransitMap(data) {
 
 function createTable(data) {
   const table = d3.select('.parking-table');
+  const headerNames = {
+    'Site Name': 'site',
+    Municipality: 'muni',
+    'Total Spaces': 'tot_space',
+    '% Affordable Units': 'bldg_affp',
+    'Walk Score': 'walk_score',
+    'Total Accessible Employment': 'b_umn_t30jobs',
+    Utilization: 'util_rate',
+    Demand: 'park_dem',
+  };
   const headers = table.append('thead').selectAll('tr')
-    .data([['Site Name',
-      'Municipality',
-      'Total Spaces',
-      'Total Apt. Units by Bedroom',
-      'Total Condo Units by Bedroom',
-      'Total Subsidized Units by Bedroom',
-      'Walk Score',
-      'Total Accessible Employment',
-      'Utilization',
-      'Demand']]).enter()
+    .data([Object.keys(headerNames)]).enter()
     .append('tr')
     .attr('class', 'parking-table--header');
   headers.selectAll('td')
@@ -160,7 +161,15 @@ function createTable(data) {
     .enter()
     .append('td')
     .text(d => d)
-    .attr('class', 'parking-table--header-cell');
+    .attr('class', 'parking-table--header-cell')
+    .on('click', (d) => {
+      rows.sort((a, b) => {
+        if (isNaN(+b[headerNames[d]])) {
+          return b[headerNames[d]] < a[headerNames[d]];
+        }
+        return b[headerNames[d]] - a[headerNames[d]];
+      });
+    });
   const rows = table.append('tbody')
     .attr('class', 'parking-table--body')
     .selectAll('tr')
@@ -172,9 +181,7 @@ function createTable(data) {
     .data(row => [row.site,
       row.muni,
       row.tot_space,
-      row.rnt_unit_t,
-      row.cnd_unit_t,
-      row.sub_unit_t,
+      row.bldg_affp,
       row.walk_score,
       row.b_umn_t30jobs,
       row.util_rate,
