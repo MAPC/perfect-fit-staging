@@ -37,16 +37,19 @@
 }
 
 .parking-table {
-  border-collapse: collapse;
-  width: 100%;
+  display: block;
+  margin: 4rem;
 
   &--header {
     background: $table_header-background;
+    display: block;
     color: $table_header-text;
+    font-size: $font_size-xsmall;
+    padding: 0.5rem;
   }
 
   &--header-cell {
-    padding: 1rem;
+    width: 7.38125rem;
   }
 
   &--data-row:nth-of-type(odd) {
@@ -54,6 +57,26 @@
   }
 
   &--data-cell {
-    padding: 1rem;
+    font-size: $font_size-xsmall;
+    padding: 0.5rem;
+    width: 7.38125rem;
+    word-break: break-word;
+
+  }
+
+  &--body {
+    display: block;
+    height: 40rem;
+    overflow: scroll;
+  }
+}
+
+.explainer {
+  margin: 4rem;
+}
+
+.explore-the-data {
+  &--header {
+    margin: 4rem 0 2rem 4rem;
   }
 }

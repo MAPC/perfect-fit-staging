@@ -43,7 +43,7 @@ function createSlider(sliderData) {
   const park_dem = sliderData.map(object => object.park_dem);
   const utilization = sliderData.map(object => object.util_rate);
   const sliderSvg = d3.select('.slider');
-  const sliderMargin = { top: 0, right: 70, bottom: 50, left: 70 };
+  const sliderMargin = { top: 0, right: 64, bottom: 50, left: 64 };
   const sliderWidth = +sliderSvg.style('width').slice(0,-2) - sliderMargin.left - sliderMargin.right;
   const sliderHeight = +sliderSvg.attr('height') - sliderMargin.top - sliderMargin.bottom;
   const g = sliderSvg.append('g').attr('transform', `translate(${sliderMargin.left}, ${sliderMargin.top})`);
@@ -161,8 +161,11 @@ function createTable(data) {
     .append('td')
     .text(d => d)
     .attr('class', 'parking-table--header-cell');
-  const rows = table.append('tbody').selectAll('tr')
-    .data(data).enter()
+  const rows = table.append('tbody')
+    .attr('class', 'parking-table--body')
+    .selectAll('tr')
+    .data(data)
+    .enter()
     .append('tr')
     .attr('class', 'parking-table--data-row');
   rows.selectAll('td')
