@@ -20,6 +20,10 @@
   width: 100%;
 }
 
+.selected {
+  background: green;
+}
+
 .index-header {
   &__background {
     @include media('small') {

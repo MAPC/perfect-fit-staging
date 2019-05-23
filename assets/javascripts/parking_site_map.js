@@ -1,7 +1,7 @@
 const projection = d3.geoAlbers()
   .scale(180000)
   .rotate([71.057, 0])
-  .center([0, 42.35])
+  .center([-.021, 42.41])
   .translate([960 / 2, 500 / 2]);
 
 let currentSortState = 'ascending';
@@ -17,7 +17,14 @@ function populateMap(data) {
     .attr('cx', d => projection([d.y_coord, d.x_coord])[0])
     .attr('cy', d => projection([d.y_coord, d.x_coord])[1])
     .attr('r', '4px')
-    .attr('fill', 'blue');
+    .attr('stroke', 'blue')
+    .attr('fill-opacity', '.2')
+    .attr('transition', 'fill-opacity 250ms linear')
+    .on('click', (d) => {
+      // debugger;
+      // d3.select(this).attr('class', 'filled');
+      // d3.select(`#${d.geo_block}`).attr('class', 'selected');
+    });
 }
 
 function brushmoved(x, circle, sliderHeight, sliderData) {
@@ -98,7 +105,7 @@ function createTownMap(data) {
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
     .selectAll('path')
-    .data(data.features)
+    .data(data)
     .enter()
     .append('path')
     .attr('fill', '#eee')
@@ -117,7 +124,7 @@ function createTrainMap(data) {
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
     .selectAll('path')
-    .data(data.features)
+    .data(data)
     .enter()
     .append('path')
     .attr('fill', 'none')
@@ -191,7 +198,8 @@ function createTable(data) {
     .data(data)
     .enter()
     .append('tr')
-    .attr('class', 'parking-table__data-row');
+    .attr('class', 'parking-table__data-row')
+    .attr('id', d => d.geo_block);
   rows.selectAll('td')
     .data(row => [row.site,
       row.muni,
@@ -214,7 +222,28 @@ window.addEventListener('DOMContentLoaded', () => {
     d3.json('/assets/data/mbta-commuter-rail-lines.json'),
     d3.json('/assets/data/mbta-rapid-transit.json'),
   ]).then((data) => {
-    createTownMap(data[0]);
+    const surveyedMunicipalities = [
+      'ARLINGTON',
+      'BELMONT',
+      'BOSTON',
+      'BROOKLINE',
+      'CAMBRIDGE',
+      'CHELSEA',
+      'EVERETT',
+      'MALDEN',
+      'MEDFORD',
+      'MELROSE',
+      'MILTON',
+      'NEWTON',
+      'QUINCY',
+      'SOMERVILLE',
+      'STONEHAM',
+      'REVERE',
+      'WALTHAM',
+      'WATERTOWN',
+      'WINTHROP'];
+    const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
+    createTownMap(filteredMunicipalities);
     createTrainMap(data[2]);
     createRapidTransitMap(data[3]);
     createTable(data[1]);
