@@ -52,29 +52,29 @@
   max-width: 95%;
   overflow: scroll;
 
-  &--header {
+  &__header {
     display: contents;
   }
 
-  &--header-row {
+  &__header-row {
     display: contents;
     margin-bottom: .5rem;
   }
 
-  &--header-cell {
+  &__header-cell {
     border-bottom: 1px solid;
   }
 
-  &--data-row {
+  &__data-row {
     display: contents;
   }
 
-  &--data-cell {
+  &__data-cell {
     padding: .5rem 0;
     word-break: break-word;
   }
 
-  &--body {
+  &__body {
     display: contents;
   }
 }

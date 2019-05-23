@@ -4,6 +4,8 @@ const projection = d3.geoAlbers()
   .center([0, 42.35])
   .translate([960 / 2, 500 / 2]);
 
+let currentSortState = 'ascending';
+
 function populateMap(data) {
   const parkingMap = d3.select('.parking-map');
   parkingMap.append('g')
@@ -153,32 +155,43 @@ function createTable(data) {
     Demand: 'park_dem',
   };
   const headers = table.append('thead')
-    .attr('class', 'parking-table--header')
+    .attr('class', 'parking-table__header')
     .selectAll('tr')
     .data([Object.keys(headerNames)]).enter()
     .append('tr')
-    .attr('class', 'parking-table--header-row');
+    .attr('class', 'parking-table__header-row');
   headers.selectAll('td')
     .data(row => row)
     .enter()
     .append('td')
     .text(d => d)
-    .attr('class', 'parking-table--header-cell')
+    .attr('class', 'parking-table__header-cell')
     .on('click', (d) => {
-      rows.sort((a, b) => {
-        if (isNaN(+b[headerNames[d]])) {
-          return b[headerNames[d]] < a[headerNames[d]];
-        }
-        return b[headerNames[d]] - a[headerNames[d]];
-      });
+      if (currentSortState === 'ascending') {
+        currentSortState = 'descending';
+        rows.sort((a, b) => {
+          if (isNaN(+b[headerNames[d]])) {
+            return b[headerNames[d]] < a[headerNames[d]];
+          }
+          return b[headerNames[d]] - a[headerNames[d]];
+        });
+      } else {
+        currentSortState = 'ascending';
+        rows.sort((a, b) => {
+          if (isNaN(+b[headerNames[d]])) {
+            return a[headerNames[d]] < b[headerNames[d]];
+          }
+          return a[headerNames[d]] - b[headerNames[d]];
+        });
+      }
     });
   const rows = table.append('tbody')
-    .attr('class', 'parking-table--body')
+    .attr('class', 'parking-table__body')
     .selectAll('tr')
     .data(data)
     .enter()
     .append('tr')
-    .attr('class', 'parking-table--data-row');
+    .attr('class', 'parking-table__data-row');
   rows.selectAll('td')
     .data(row => [row.site,
       row.muni,
@@ -191,7 +204,7 @@ function createTable(data) {
     .enter()
     .append('td')
     .text(d => d)
-    .attr('class', 'parking-table--data-cell');
+    .attr('class', 'parking-table__data-cell');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
