@@ -1,3 +1,18 @@
+.aspect-ratio-box {
+  height: 0;
+  overflow: scroll;
+  padding-top: 100%;
+  position: relative;
+}
+
+.aspect-ratio-box-inside {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
 .index-header {
   height: 100%;
   margin: 0 auto;
@@ -47,10 +62,6 @@
   1fr
   .6fr
   .6fr;
-  height: 50rem;
-  margin: 4rem;
-  max-width: 95%;
-  overflow: scroll;
 
   &__header {
     display: contents;
@@ -77,6 +88,13 @@
   &__body {
     display: contents;
   }
+}
+
+.parking-data {
+  display: grid;
+  grid-column-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+  margin: 4rem;
 }
 
 .explainer {
