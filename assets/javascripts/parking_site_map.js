@@ -6,6 +6,31 @@ const projection = d3.geoAlbers()
 
 let currentSortState = 'ascending';
 
+function toggleSelected(d) {
+  if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
+    d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
+    d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
+  } else {
+    d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
+    d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
+  }
+}
+
+function createTransitMapToggle() {
+  const toggleButton = d3.select('.toggle__transit');
+  toggleButton.on('click', (d) => {
+    if (d3.select('.parking-map__train-lines--hidden').empty() === true) {
+      d3.select('.parking-map__train-lines').attr('class', 'parking-map__train-lines parking-map__train-lines--hidden');
+      d3.select('.parking-map__rapid-transit-lines').attr('class', 'parking-map__rapid-transit-lines parking-map__rapid-transit-lines--hidden');
+      d3.select('.toggle__transit').text('Show Public Transit');
+    } else {
+      d3.select('.parking-map__train-lines--hidden').attr('class', 'parking-map__train-lines');
+      d3.select('.parking-map__rapid-transit-lines--hidden').attr('class', 'parking-map__rapid-transit-lines');
+      d3.select('.toggle__transit').text('Hide Public Transit');
+    }
+  });
+}
+
 function populateMap(data) {
   const parkingMap = d3.select('.parking-map');
   parkingMap.append('g')
@@ -19,15 +44,7 @@ function populateMap(data) {
     .attr('cx', d => projection([d.y_coord, d.x_coord])[0])
     .attr('cy', d => projection([d.y_coord, d.x_coord])[1])
     .attr('r', '4px')
-    .on('click', (d) => {
-      if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
-        d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
-        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
-      } else {
-        d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
-        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
-      }
-    });
+    .on('click', d => toggleSelected(d));
 }
 
 function brushmoved(x, circle, sliderHeight, sliderData) {
@@ -122,7 +139,7 @@ function createTrainMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
-    .attr('class', 'parking-map__train-lines')
+    .attr('class', 'parking-map__train-lines parking-map__train-lines--hidden')
     .selectAll('path')
     .data(data.features)
     .enter()
@@ -138,7 +155,7 @@ function createRapidTransitMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
-    .attr('class', 'parking-map__rapid-transit-lines')
+    .attr('class', 'parking-map__rapid-transit-lines parking-map__rapid-transit-lines--hidden')
     .selectAll('path')
     .data(data.features)
     .enter()
@@ -201,22 +218,14 @@ function createTable(data) {
     .append('tr')
     .attr('class', 'parking-table__data-row')
     .attr('id', d => `block-${d.geo_block}`)
-    .on('click', (d) => {
-      if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
-        d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
-        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
-      } else {
-        d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
-        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
-      }
-    });
+    .on('click', d => toggleSelected(d));
   rows.selectAll('td')
     .data(row => [row.site,
       row.muni,
       row.tot_space,
       row.bldg_affp,
       row.walk_score,
-      row.b_umn_t30jobs,
+      Number(row.b_umn_t30jobs).toLocaleString(),
       row.util_rate,
       row.park_dem])
     .enter()
@@ -259,5 +268,6 @@ window.addEventListener('DOMContentLoaded', () => {
     createTable(data[1]);
     populateMap(data[1], projection);
     createSlider(data[1]);
+    createTransitMapToggle();
   });
 });
