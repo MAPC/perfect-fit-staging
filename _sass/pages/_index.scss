@@ -20,10 +20,6 @@
   width: 100%;
 }
 
-.selected {
-  background: green;
-}
-
 .index-header {
   &__background {
     @include media('small') {
@@ -77,6 +73,11 @@
 
   &__data-row {
     display: contents;
+
+    &--selected {
+      display: contents;
+      font-weight: bold;
+    }
   }
 
   &__data-cell {

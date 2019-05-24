@@ -9,21 +9,24 @@ let currentSortState = 'ascending';
 function populateMap(data) {
   const parkingMap = d3.select('.parking-map');
   parkingMap.append('g')
+    .attr('class', 'parking-map__sites')
     .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
     .attr('class', 'site')
+    .attr('id', d => `site-${d.geo_block}`)
     .attr('cx', d => projection([d.y_coord, d.x_coord])[0])
     .attr('cy', d => projection([d.y_coord, d.x_coord])[1])
     .attr('r', '4px')
-    .attr('stroke', 'blue')
-    .attr('fill-opacity', '.2')
-    .attr('transition', 'fill-opacity 250ms linear')
     .on('click', (d) => {
-      // debugger;
-      // d3.select(this).attr('class', 'filled');
-      // d3.select(`#${d.geo_block}`).attr('class', 'selected');
+      if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
+        d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
+        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
+      } else {
+        d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
+        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
+      }
     });
 }
 
@@ -39,6 +42,7 @@ function brushmoved(x, circle, sliderHeight, sliderData) {
     handle.attr('display', null).attr('transform', (d, i) => `translate(${s[i]}, ${sliderHeight / 2})`);
     const filteredSliderData = sliderData.filter(d => sx[0] <= d.park_dem && d.park_dem <= sx[1]);
     d3.selectAll('.site').remove();
+    d3.selectAll('.parking-map__sites').remove();
     populateMap(filteredSliderData, projection);
     d3.selectAll('thead').remove();
     d3.selectAll('tbody').remove();
@@ -104,27 +108,23 @@ function createTownMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
+    .attr('class', 'parking-map__municipalities')
     .selectAll('path')
     .data(data)
     .enter()
     .append('path')
     .attr('fill', '#eee')
     .attr('stroke', '#999')
-    .attr('d', path)
-    .on('mouseover', (d) => {
-      d3.select('.municipality-name').text(d.properties.town);
-    })
-    .on('mouseout', () => {
-      d3.select('.municipality-name').text('Hover to see municipality name.');
-    });
+    .attr('d', path);
 }
 
 function createTrainMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
+    .attr('class', 'parking-map__train-lines')
     .selectAll('path')
-    .data(data)
+    .data(data.features)
     .enter()
     .append('path')
     .attr('fill', 'none')
@@ -138,6 +138,7 @@ function createRapidTransitMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
+    .attr('class', 'parking-map__rapid-transit-lines')
     .selectAll('path')
     .data(data.features)
     .enter()
@@ -199,7 +200,16 @@ function createTable(data) {
     .enter()
     .append('tr')
     .attr('class', 'parking-table__data-row')
-    .attr('id', d => d.geo_block);
+    .attr('id', d => `block-${d.geo_block}`)
+    .on('click', (d) => {
+      if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
+        d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
+        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
+      } else {
+        d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
+        d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
+      }
+    });
   rows.selectAll('td')
     .data(row => [row.site,
       row.muni,

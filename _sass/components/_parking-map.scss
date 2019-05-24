@@ -1,3 +1,15 @@
 .parking-map {
   width: 100%;
 }
+
+.site {
+  fill-opacity: .2;
+  stroke: blue;
+  transition: 'fill-opacity 250ms linear';
+  &--selected {
+    fill-opacity: 1;
+    fill: blue;
+    stroke: blue;
+    transition: initial;
+  }
+}
