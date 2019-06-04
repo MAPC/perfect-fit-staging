@@ -82,9 +82,15 @@ function createSlider(sliderData) {
   const sliderY = d3.scaleLinear().domain(d3.extent(utilization)).range([0, sliderHeight]);
 
   g.append('g')
-    .attr('class', 'axis axis--x')
+    .attr('class', 'slider__x-axis')
     .attr('transform', `translate(0, ${sliderHeight})`)
     .call(d3.axisBottom(sliderX));
+
+  g.append('text')
+    .attr('class', 'slider__x-axis-label')
+    .attr('transform', `translate(${sliderWidth / 2}, ${sliderHeight + 35})`)
+    .attr('text-anchor', 'middle')
+    .text('Demand');
 
   const circle = g.append('g')
     .attr('class', 'circle')
