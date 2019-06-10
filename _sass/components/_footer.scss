@@ -1,0 +1,36 @@
+.footer {
+  background-color: $footer-background-color;
+  color: $footer-color;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: $font_size-xsmall;
+  line-height: $font_size-small;
+  padding: 6rem 4rem 1rem;
+  transition-duration: 1.5s;
+
+  &__row {
+    display: flex;
+    flex-basis: 100%;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+}
+
+  &__column {
+    flex-basis: 22%;
+
+    &--social {
+      font-size: $font_size-medium;
+    }
+  }
+
+  &__mapc-brand {
+    align-items: center;
+    display: flex;
+  }
+
+  &__logo {
+    height: 36px;
+    margin-right: 1em;
+    width: 72px;
+  }
+}
