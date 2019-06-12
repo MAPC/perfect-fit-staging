@@ -5,7 +5,7 @@
   flex-wrap: wrap;
   font-size: $font_size-xsmall;
   line-height: $font_size-small;
-  padding: 6rem 4rem 1rem;
+  padding: 5rem 4rem 1rem;
   transition-duration: 1.5s;
 
   &__row {
@@ -23,6 +23,10 @@
     }
   }
 
+  &__header {
+    margin-bottom: 1rem;
+  }
+
   &__mapc-brand {
     align-items: center;
     display: flex;
@@ -32,5 +36,13 @@
     height: 36px;
     margin-right: 1em;
     width: 72px;
+  }
+
+  &__link {
+    color: $footer-color;
+  }
+
+  &__list-item {
+    list-style-type: none;
   }
 }
