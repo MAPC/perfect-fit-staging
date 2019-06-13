@@ -1,7 +1,7 @@
 const projection = d3.geoAlbers()
-  .scale(180000)
+  .scale(120000)
   .rotate([71.057, 0])
-  .center([-.021, 42.41])
+  .center([-0.021, 42.38])
   .translate([960 / 2, 500 / 2]);
 
 let currentSortState = 'ascending';

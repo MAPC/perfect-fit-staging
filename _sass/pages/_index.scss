@@ -1,7 +1,11 @@
+body {
+  scroll-snap-type: y proximity;
+}
+
 .aspect-ratio-box {
   height: 0;
   overflow: scroll;
-  padding-top: calc(695 / 886 * 100%);
+  padding-top: calc(630 / 886 * 100%);
   position: relative;
 }
 
@@ -140,6 +144,9 @@
 }
 
 .explore-the-data {
+  margin-bottom: 4rem;
+  scroll-snap-align: start;
+
   &--header {
     margin: 4rem 0 2rem 4rem;
   }
