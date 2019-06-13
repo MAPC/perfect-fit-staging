@@ -90,7 +90,12 @@ function createSlider(sliderData) {
     .attr('class', 'slider__x-axis-label')
     .attr('transform', `translate(${sliderWidth / 2}, ${sliderHeight + 35})`)
     .attr('text-anchor', 'middle')
-    .text('Demand');
+    .text('Demand Per Unit');
+
+  g.append('text')
+    .attr('class', 'slider__y-axis-label')
+    .attr('transform', `rotate(-90) translate(-${sliderHeight - 15} , 0)`)
+    .text('Utilization')
 
   const circle = g.append('g')
     .attr('class', 'circle')
