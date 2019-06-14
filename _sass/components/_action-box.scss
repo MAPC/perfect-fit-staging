@@ -1,0 +1,38 @@
+.action-box {
+  border: 1px solid blue;
+  border-radius: .8rem;
+  margin-bottom: 1rem;
+  padding: 2rem;
+
+  &__title {
+    @include media(large) {
+      font-size: 1.5rem;
+    }
+
+    font-size: 2rem;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue';
+    text-transform: uppercase;
+  }
+
+  &__button {
+    background-color: #9D0DFF;
+    border-radius: 1rem;
+    color: white;
+    display: inline-block;
+    padding: 1rem;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue';
+    text-transform: uppercase;
+  }
+
+  &__text {
+    @include media(large) {
+      font-size: 1rem;
+    }
+
+    color: #707070;
+    font-family: 'Helvetica Neue';
+    font-size: 1.5rem;
+    font-weight: 300;
+    line-height: 1.2em;
+  }
+}
