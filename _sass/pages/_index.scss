@@ -18,13 +18,15 @@ body {
 
   @include media(small) {
     grid-template-columns: 90%;
+    margin: 1rem auto 1rem;
     width: 90%;
   }
 
   display: grid;
   grid-column-gap: 5rem;
   grid-template-columns: 43.75rem 43.75rem;
-  margin: 0 auto 12rem;
+  margin: 20rem auto 20rem;
+  scroll-snap-align: start;
   width: 93rem;
 }
 

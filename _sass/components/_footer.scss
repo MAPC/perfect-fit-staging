@@ -9,6 +9,10 @@
   transition-duration: 1.5s;
 
   &__row {
+    @include media(small) {
+      display: initial;
+    }
+
     display: flex;
     flex-basis: 100%;
     justify-content: space-between;
@@ -16,6 +20,10 @@
 }
 
   &__column {
+    @include media(small) {
+      margin-top: 1.5rem;
+    }
+
     flex-basis: 22%;
 
     &--social {
