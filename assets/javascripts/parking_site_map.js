@@ -245,12 +245,31 @@ function createTable(data) {
     .attr('class', 'parking-table__data-cell');
 }
 
+function createJobMap(data) {
+  const colors = d3.scaleOrdinal()
+                   .domain([1,2,3,4,5,6,7,8])
+                   .range(["#ffffff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#084594"])
+  const parkingMap = d3.select('.parking-map');
+  const path = d3.geoPath().projection(projection);
+  parkingMap.append('g')
+    .attr('class', 'parking-map__jobs')
+    .selectAll('path')
+    .data(data)
+    .enter()
+    .append('path')
+    .attr('fill', d => colors(d.properties.Category))
+    .attr('stroke', '#bbb')
+    .attr('opacity', '0.5')
+    .attr('d', path);
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     d3.json('/assets/data/ma-munis.json'),
     d3.csv('/assets/data/perfect_fit_parking_data.csv'),
     d3.json('/assets/data/mbta-commuter-rail-lines.json'),
     d3.json('/assets/data/mbta-rapid-transit.json'),
+    d3.json('/assets/data/job-categories.json'),
   ]).then((data) => {
     const surveyedMunicipalities = [
       'ARLINGTON',
@@ -280,5 +299,6 @@ window.addEventListener('DOMContentLoaded', () => {
     populateMap(data[1], projection);
     createSlider(data[1]);
     createTransitMapToggle();
+    createJobMap(data[4].features);
   });
 });
