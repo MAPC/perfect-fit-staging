@@ -31,6 +31,19 @@ function createTransitMapToggle() {
   });
 }
 
+function createJobsMapToggle() {
+  const toggleButton = d3.select('.toggle__jobs');
+  toggleButton.on('click', (d) => {
+    if (d3.select('.parking-map__jobs--hidden').empty() === true) {
+      d3.select('.parking-map__jobs').attr('class', 'parking-map__jobs parking-map__jobs--hidden');
+      d3.select('.toggle__jobs').text('Show Jobs Heatmap');
+    } else {
+      d3.select('.parking-map__jobs--hidden').attr('class', 'parking-map__jobs');
+      d3.select('.toggle__jobs').text('Hide Jobs Heatmap');
+    }
+  });
+}
+
 function populateMap(data) {
   const parkingMap = d3.select('.parking-map');
   parkingMap.append('g')
@@ -252,7 +265,7 @@ function createJobMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
-    .attr('class', 'parking-map__jobs')
+    .attr('class', 'parking-map__jobs parking-map__jobs--hidden')
     .selectAll('path')
     .data(data)
     .enter()
@@ -269,7 +282,7 @@ window.addEventListener('DOMContentLoaded', () => {
     d3.csv('/assets/data/perfect_fit_parking_data.csv'),
     d3.json('/assets/data/mbta-commuter-rail-lines.json'),
     d3.json('/assets/data/mbta-rapid-transit.json'),
-    d3.json('/assets/data/job-categories.json'),
+    d3.json('/assets/data/job-categories-topo.json'),
   ]).then((data) => {
     const surveyedMunicipalities = [
       'ARLINGTON',
@@ -292,6 +305,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'WATERTOWN',
       'WINTHROP'];
     const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
+    const topology = topojson.feature(data[4], data[4].objects['job-categories']);
     createTownMap(filteredMunicipalities);
     createTrainMap(data[2]);
     createRapidTransitMap(data[3]);
@@ -299,6 +313,6 @@ window.addEventListener('DOMContentLoaded', () => {
     populateMap(data[1], projection);
     createSlider(data[1]);
     createTransitMapToggle();
-    createJobMap(data[4].features);
+    createJobMap(topology.features);
   });
 });

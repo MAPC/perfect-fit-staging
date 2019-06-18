@@ -12,6 +12,12 @@
       visibility: hidden;
     }
   }
+
+  &__jobs {
+    &--hidden {
+      visibility: hidden;
+    }
+  }
 }
 
 .site {
