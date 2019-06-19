@@ -44,6 +44,19 @@
     border-radius: .8rem;
     padding: 1rem;
     position: absolute;
+    top: -9rem;
+  }
+
+  &__jobs {
+    @include media('small') {
+      margin-top: 1rem;
+      position: relative;
+      top: initial;
+    }
+    border: thin solid;
+    border-radius: .8rem;
+    padding: 1rem;
+    position: absolute;
     top: -4.5rem;
   }
 }

@@ -260,8 +260,8 @@ function createTable(data) {
 
 function createJobMap(data) {
   const colors = d3.scaleOrdinal()
-                   .domain([1,2,3,4,5,6,7,8])
-                   .range(["#ffffff","#deebf7","#c6dbef","#9ecae1","#6baed6","#4292c6","#2171b5","#084594"])
+    .domain([1, 2, 3, 4, 5, 6, 7, 8])
+    .range(['#ffffff', '#deebf7', '#c6dbef', '#9ecae1', '#6baed6', '#4292c6', '#2171b5', '#084594']);
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
   parkingMap.append('g')
@@ -270,7 +270,7 @@ function createJobMap(data) {
     .data(data)
     .enter()
     .append('path')
-    .attr('fill', d => colors(d.properties.Category))
+    .attr('fill', d => colors(d.properties.OBJECTID))
     .attr('stroke', '#bbb')
     .attr('opacity', '0.5')
     .attr('d', path);
@@ -305,7 +305,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'WATERTOWN',
       'WINTHROP'];
     const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
-    const topology = topojson.feature(data[4], data[4].objects['job-categories']);
+    const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC']);
     createTownMap(filteredMunicipalities);
     createTrainMap(data[2]);
     createRapidTransitMap(data[3]);
@@ -314,5 +314,6 @@ window.addEventListener('DOMContentLoaded', () => {
     createSlider(data[1]);
     createTransitMapToggle();
     createJobMap(topology.features);
+    createJobsMapToggle();
   });
 });
