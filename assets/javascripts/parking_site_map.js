@@ -299,13 +299,12 @@ window.addEventListener('DOMContentLoaded', () => {
       'NEWTON',
       'QUINCY',
       'SOMERVILLE',
-      'STONEHAM',
       'REVERE',
       'WALTHAM',
       'WATERTOWN',
       'WINTHROP'];
     const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
-    const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC']);
+    const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC_Simp']);
     createTownMap(filteredMunicipalities);
     createTrainMap(data[2]);
     createRapidTransitMap(data[3]);
