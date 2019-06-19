@@ -26,7 +26,6 @@ body {
   grid-column-gap: 5rem;
   grid-template-columns: 43.75rem 43.75rem;
   margin: 20rem auto 20rem;
-  scroll-snap-align: start;
   width: 93rem;
 }
 
@@ -189,8 +188,16 @@ body {
 }
 
 .explainer {
+  border: 1px solid blue;
+  border-radius: .8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   margin: 4rem;
-  scroll-snap-align: start;
+  padding: 2rem;
+
+  &__left {
+
+  }
 }
 
 .explore-the-data {

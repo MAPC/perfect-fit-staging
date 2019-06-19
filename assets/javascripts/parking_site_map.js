@@ -194,9 +194,9 @@ function createRapidTransitMap(data) {
 function createTable(data) {
   const table = d3.select('.parking-table');
   const headerNames = {
-    'Site Name': 'site',
+    'Site Name': 'prop_name',
     Municipality: 'muni',
-    'Total Spaces': 'tot_space',
+    'Total Spaces': 'park_sup_tot',
     '% Affordable Units': 'bldg_affp',
     'Walk Score': 'walk_score',
     'Total Accessible Employment': 'b_umn_t30jobs',
@@ -244,9 +244,9 @@ function createTable(data) {
     .attr('id', d => `block-${d.geo_block}`)
     .on('click', d => toggleSelected(d));
   rows.selectAll('td')
-    .data(row => [row.site,
+    .data(row => [row.prop_name,
       row.muni,
-      row.tot_space,
+      row.park_sup_tot,
       row.bldg_affp,
       row.walk_score,
       Number(row.b_umn_t30jobs).toLocaleString(),
@@ -279,7 +279,7 @@ function createJobMap(data) {
 window.addEventListener('DOMContentLoaded', () => {
   Promise.all([
     d3.json('/assets/data/ma-munis.json'),
-    d3.csv('/assets/data/perfect_fit_parking_data.csv'),
+    d3.csv('/assets/data/perfect-fit-parking-data.csv'),
     d3.json('/assets/data/mbta-commuter-rail-lines.json'),
     d3.json('/assets/data/mbta-rapid-transit.json'),
     d3.json('/assets/data/job-categories-topo.json'),
