@@ -7,12 +7,12 @@ const projection = d3.geoAlbers()
 let currentSortState = 'ascending';
 
 function toggleSelected(d) {
-  if (d3.select(`#site-${d.geo_block}`).attr('class') === 'site') {
-    d3.select(`#site-${d.geo_block}`).attr('r', '6px').attr('class', 'site--selected');
-    d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row--selected');
+  if (d3.select(`#site-${d.site_id}`).attr('class') === 'site') {
+    d3.select(`#site-${d.site_id}`).attr('r', '6px').attr('class', 'site--selected');
+    d3.select(`#block-${d.site_id}`).attr('class', 'parking-table__data-row--selected');
   } else {
-    d3.select(`#site-${d.geo_block}`).attr('r', '4px').attr('class', 'site');
-    d3.select(`#block-${d.geo_block}`).attr('class', 'parking-table__data-row');
+    d3.select(`#site-${d.site_id}`).attr('r', '4px').attr('class', 'site');
+    d3.select(`#block-${d.site_id}`).attr('class', 'parking-table__data-row');
   }
 }
 
@@ -53,7 +53,7 @@ function populateMap(data) {
     .enter()
     .append('circle')
     .attr('class', 'site')
-    .attr('id', d => `site-${d.geo_block}`)
+    .attr('id', d => `site-${d.site_id}`)
     .attr('cx', d => projection([d.y_coord, d.x_coord])[0])
     .attr('cy', d => projection([d.y_coord, d.x_coord])[1])
     .attr('r', '4px')
@@ -241,7 +241,7 @@ function createTable(data) {
     .enter()
     .append('tr')
     .attr('class', 'parking-table__data-row')
-    .attr('id', d => `block-${d.geo_block}`)
+    .attr('id', d => `block-${d.site_id}`)
     .on('click', d => toggleSelected(d));
   rows.selectAll('td')
     .data(row => [row.prop_name,
