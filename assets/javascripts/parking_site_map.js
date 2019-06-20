@@ -271,8 +271,7 @@ function createJobMap(data) {
     .enter()
     .append('path')
     .attr('fill', d => colors(d.properties.OBJECTID))
-    .attr('stroke', '#bbb')
-    .attr('opacity', '0.5')
+    .attr('opacity', '0.8')
     .attr('d', path);
 }
 
@@ -306,13 +305,13 @@ window.addEventListener('DOMContentLoaded', () => {
     const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
     const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC_Simp']);
     createTownMap(filteredMunicipalities);
+    createJobMap(topology.features);
     createTrainMap(data[2]);
     createRapidTransitMap(data[3]);
     createTable(data[1]);
     populateMap(data[1], projection);
     createSlider(data[1]);
     createTransitMapToggle();
-    createJobMap(topology.features);
     createJobsMapToggle();
   });
 });
