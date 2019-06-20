@@ -26,7 +26,7 @@ body {
   }
 
   display: grid;
-  grid-column-gap: 5rem;
+  grid-column-gap: 2rem;
   grid-template-columns: 43.75rem 43.75rem;
   margin: 20rem auto 20rem;
   width: 93rem;
@@ -195,11 +195,15 @@ body {
 .explainer {
   display: grid;
   grid-template-columns: 60% 40%;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
 
   &__left {
     border: 1px solid #707070;
     border-radius: .8rem;
     box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
+    display: flex;
+    flex-wrap: wrap;
     margin: 4rem 1rem 4rem 4rem;
     padding: 2rem;
   }
@@ -221,6 +225,7 @@ body {
     font-size: 1.1em;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   &__sub-heading {
@@ -229,15 +234,24 @@ body {
     font-weight: 400;
     margin: 0;
     padding: 0;
+    width: 100%;
   }
 
   &__unordered-list {
     padding-left: 0;
+    width: 100%;
   }
 
   &__list-item {
     list-style-position: inside;
     margin: 1rem;
+    width: 100%;
+  }
+
+  &__right-align {
+    align-self: end;
+    text-align: right;
+    width: 100%;
   }
 
   &__button {
@@ -245,7 +259,6 @@ body {
     border-radius: 1rem;
     color: white;
     display: inline-block;
-    margin: 0 0 0 70%;
     padding: 1rem;
     text-transform: uppercase;
   }

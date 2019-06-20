@@ -2,8 +2,11 @@
   border: 1px solid #707070;
   border-radius: .8rem;
   box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
-  margin-bottom: 1rem;
-  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  height: 20rem;
+  margin-bottom: 3rem;
+  padding: 3.5rem 2rem 1rem 2rem;
 
   &__title {
     @include media(large) {
@@ -14,6 +17,13 @@
     color: #000000;
     font-size: 2rem;
     text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__right-align {
+    align-self: end;
+    text-align: right;
+    width: 100%;
   }
 
   &__button {
@@ -34,5 +44,6 @@
     font-size: 1.5rem;
     font-weight: 300;
     line-height: 1.2em;
+    width: 100%;
   }
 }
