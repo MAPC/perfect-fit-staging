@@ -2,6 +2,8 @@ body {
   @include media(small) {
     scroll-snap-type: none;
   }
+
+  color: #707070;
   font-family: 'Open Sans', sans-serif;
   scroll-snap-type: y proximity;
 }
@@ -95,6 +97,7 @@ body {
   }
 
   &__heading {
+    color: #000000;
     margin: 2rem 0;
   }
 }
@@ -194,18 +197,18 @@ body {
   grid-template-columns: 60% 40%;
 
   &__left {
-    border: 1px solid blue;
+    border: 1px solid #707070;
     border-radius: .8rem;
     box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
-    margin: 4rem;
+    margin: 4rem 1rem 4rem 4rem;
     padding: 2rem;
   }
 
   &__right {
-    border: 1px solid blue;
+    border: 1px solid #707070;
     border-radius: .8rem;
     box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
-    margin: 4rem;
+    margin: 4rem 4rem 4rem 1rem;
     padding: 2rem;
   }
 
@@ -214,16 +217,37 @@ body {
   }
 
   &__heading {
-    font-size: 33px;
+    color: #000000;
+    font-size: 1.1em;
     margin: 0;
     padding: 0;
   }
 
   &__sub-heading {
-    font-size: 30px;
+    font-size: 1rem;
+    font-style: italic;
     font-weight: 400;
     margin: 0;
     padding: 0;
+  }
+
+  &__unordered-list {
+    padding-left: 0;
+  }
+
+  &__list-item {
+    list-style-position: inside;
+    margin: 1rem;
+  }
+
+  &__button {
+    background-color: #9D0DFF;
+    border-radius: 1rem;
+    color: white;
+    display: inline-block;
+    margin: 0 0 0 70%;
+    padding: 1rem;
+    text-transform: uppercase;
   }
 }
 
@@ -231,7 +255,8 @@ body {
   margin-bottom: 4rem;
   scroll-snap-align: start;
 
-  &--header {
+  &__header {
+    color: #000000;
     margin: 4rem 0 2rem 4rem;
   }
 }
