@@ -6,6 +6,12 @@ const projection = d3.geoAlbers()
 
 let currentSortState = 'ascending';
 
+function sortText (a,b) {
+    const upA = a.toUpperCase();
+    const upB = b.toUpperCase();
+    return (upA < upB) ? -1 : (upA > upB) ? 1 : 0;
+}
+
 function toggleSelected(d) {
   if (d3.select(`#site-${d.site_id}`).attr('class') === 'site') {
     d3.select(`#site-${d.site_id}`).attr('r', '6px').attr('class', 'site--selected');
@@ -216,21 +222,18 @@ function createTable(data) {
     .text(d => d)
     .attr('class', 'parking-table__header-cell')
     .on('click', (d) => {
+      console.log('hello from click');
+      console.log('currentSortState:', currentSortState)
+      console.log('headerName:', headerNames[d])
       if (currentSortState === 'ascending') {
         currentSortState = 'descending';
         rows.sort((a, b) => {
-          if (isNaN(+b[headerNames[d]])) {
-            return b[headerNames[d]] < a[headerNames[d]];
-          }
-          return b[headerNames[d]] - a[headerNames[d]];
+          return sortText(b[headerNames[d]], a[headerNames[d]]);
         });
       } else {
         currentSortState = 'ascending';
         rows.sort((a, b) => {
-          if (isNaN(+b[headerNames[d]])) {
-            return a[headerNames[d]] < b[headerNames[d]];
-          }
-          return a[headerNames[d]] - b[headerNames[d]];
+          return sortText(a[headerNames[d]], b[headerNames[d]]);
         });
       }
     });
