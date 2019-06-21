@@ -206,7 +206,7 @@ function createTable(data) {
     '% Affordable Units': 'bldg_affp',
     'Walk Score': 'walk_score',
     'Total Accessible Employment': 'b_umn_t30jobs',
-    Utilization: 'util_rate',
+    '% Utilization': 'util_rate',
     Demand: 'park_dem',
   };
   const headers = table.append('thead')
@@ -247,10 +247,10 @@ function createTable(data) {
     .data(row => [row.prop_name,
       row.muni,
       row.park_sup_tot,
-      row.bldg_affp,
+      +row.bldg_affp * 100,
       row.walk_score,
       Number(row.b_umn_t30jobs).toLocaleString(),
-      row.util_rate,
+      +row.util_rate * 100,
       row.park_dem])
     .enter()
     .append('td')
