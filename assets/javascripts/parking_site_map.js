@@ -154,6 +154,9 @@ function createSlider(sliderData) {
 function createTownMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
+  let tooltip = d3.select(".parking-data").append("div")
+    .attr("class", "tooltip")
+    .style("display", "none");
   parkingMap.append('g')
     .attr('class', 'parking-map__municipalities')
     .selectAll('path')
@@ -162,7 +165,18 @@ function createTownMap(data) {
     .append('path')
     .attr('fill', '#eee')
     .attr('stroke', '#999')
-    .attr('d', path);
+    .attr('d', path)
+    .on("mouseover", (d) => {
+      tooltip.style("display", "inline");
+    })
+    .on("mousemove", (d) => {
+      tooltip.text(d.properties.town)
+        .style("left", (d3.event.pageX - 34) + "px")
+        .style("top", (d3.event.pageY - 12) + "px");
+    })
+    .on("mouseout", (d) => {
+      tooltip.style("display", "none");
+    })
 }
 
 function createTrainMap(data) {
