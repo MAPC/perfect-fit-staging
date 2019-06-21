@@ -222,9 +222,6 @@ function createTable(data) {
     .text(d => d)
     .attr('class', 'parking-table__header-cell')
     .on('click', (d) => {
-      console.log('hello from click');
-      console.log('currentSortState:', currentSortState)
-      console.log('headerName:', headerNames[d])
       if (currentSortState === 'ascending') {
         currentSortState = 'descending';
         rows.sort((a, b) => {
