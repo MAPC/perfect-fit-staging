@@ -6,10 +6,17 @@ const projection = d3.geoAlbers()
 
 let currentSortState = 'ascending';
 
-function sortText (a,b) {
-    const upA = a.toUpperCase();
-    const upB = b.toUpperCase();
-    return (upA < upB) ? -1 : (upA > upB) ? 1 : 0;
+function sortText(a, b) {
+  const upA = a.toUpperCase();
+  const upB = b.toUpperCase();
+  return (upA < upB) ? -1 : (upA > upB) ? 1 : 0;
+}
+
+function camelize(str) {
+  return str.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, function(match, index) {
+    if (+match === 0) return ""; // or if (/\s+/.test(match)) for white spaces
+    return index == 0 ? match.toLowerCase() : match.toUpperCase();
+  });
 }
 
 function toggleSelected(d) {
@@ -154,9 +161,8 @@ function createSlider(sliderData) {
 function createTownMap(data) {
   const parkingMap = d3.select('.parking-map');
   const path = d3.geoPath().projection(projection);
-  let tooltip = d3.select(".parking-data").append("div")
-    .attr("class", "tooltip")
-    .style("display", "none");
+  let tooltip = d3.select('.parking-data').append('div')
+    .attr('class', 'tooltip');
   parkingMap.append('g')
     .attr('class', 'parking-map__municipalities')
     .selectAll('path')
@@ -166,16 +172,14 @@ function createTownMap(data) {
     .attr('fill', '#eee')
     .attr('stroke', '#999')
     .attr('d', path)
-    .on("mouseover", (d) => {
-      tooltip.style("display", "inline");
+    .on('mouseover', (d) => {
+      tooltip.style('display', 'inline');
     })
-    .on("mousemove", (d) => {
-      tooltip.text(d.properties.town)
-        .style("left", (d3.event.pageX - 34) + "px")
-        .style("top", (d3.event.pageY - 12) + "px");
+    .on('mousemove', (d) => {
+      tooltip.text(d.properties.town.toLowerCase().toTitleCase());
     })
-    .on("mouseout", (d) => {
-      tooltip.style("display", "none");
+    .on('mouseout', (d) => {
+      tooltip.style('display', 'none');
     })
 }
 
