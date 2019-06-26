@@ -265,10 +265,10 @@ function createTable(data) {
     .data(row => [row.prop_name,
       row.muni,
       row.park_sup_tot,
-      +row.bldg_affp * 100,
+      Math.round(+row.bldg_affp * 100),
       row.walk_score,
       Number(row.b_umn_t30jobs).toLocaleString(),
-      +row.util_rate * 100,
+      Math.round(+row.util_rate * 100),
       row.park_dem])
     .enter()
     .append('td')
