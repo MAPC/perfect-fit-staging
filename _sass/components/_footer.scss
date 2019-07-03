@@ -50,6 +50,10 @@
     color: $footer-color;
   }
 
+  &__unordered-list {
+    padding-left: 0;
+  }
+
   &__list-item {
     list-style-type: none;
   }

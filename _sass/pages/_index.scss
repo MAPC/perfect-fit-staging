@@ -3,8 +3,9 @@ body {
     scroll-snap-type: none;
   }
 
-  color: #707070;
+  color: $body_font;
   font-family: 'Open Sans', sans-serif;
+  margin: 0;
   scroll-snap-type: y proximity;
 }
 
@@ -211,7 +212,6 @@ body {
   }
 
   &__left {
-    border: 1px solid #707070;
     border-radius: .8rem;
     box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
     display: flex;
@@ -221,7 +221,6 @@ body {
   }
 
   &__right {
-    border: 1px solid #707070;
     border-radius: .8rem;
     box-shadow: 0 3px 20px rgba(13, 14, 242, .16);
     margin: 4rem 4rem 4rem 1rem;
@@ -280,18 +279,14 @@ body {
   }
 
   &__button {
-    @include media(large) {
-      font-size: 1rem;
-    }
-
-
     background-color: #9D0DFF;
-    border-radius: 1rem;
+    border-radius: 50rem;
     color: white;
     display: inline-block;
-    font-size: 1.5rem;
-    padding: 1rem;
+    font-size: 1rem;
+    padding: 1em 1.7em 1em 0;
     text-transform: uppercase;
+    width: 7em;
   }
 
   &__text {
@@ -309,7 +304,13 @@ body {
 
   &__header {
     color: #000000;
-    margin: 4rem 0 2rem 4rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid $body_font;
+  }
+
+  &__center {
+    width: 28em;
+    margin: 0 auto;
   }
 }
 
