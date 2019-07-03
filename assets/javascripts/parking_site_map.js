@@ -220,12 +220,12 @@ function createTable(data) {
   const headerNames = {
     'Site Name': 'prop_name',
     Municipality: 'muni',
-    'Total Spaces': 'park_sup_tot',
+    'Parking Supply per Unit': 'park_sup_tot',
+    'Parking Demand per Unit': 'park_dem',
     '% Affordable Units': 'bldg_affp',
     'Walk Score': 'walk_score',
     'Total Accessible Employment': 'b_umn_t30jobs',
     '% Utilization': 'util_rate',
-    Demand: 'park_dem',
   };
   const headers = table.append('thead')
     .attr('class', 'parking-table__header')
@@ -264,12 +264,12 @@ function createTable(data) {
   rows.selectAll('td')
     .data(row => [row.prop_name,
       row.muni,
-      row.park_sup_tot,
+      parseFloat(row.park_sup_tot).toFixed(2),
+      parseFloat(row.park_dem).toFixed(2),
       Math.round(+row.bldg_affp * 100),
       row.walk_score,
       Number(row.b_umn_t30jobs).toLocaleString(),
-      Math.round(+row.util_rate * 100),
-      row.park_dem])
+      Math.round(+row.util_rate * 100)])
     .enter()
     .append('td')
     .text(d => d)
