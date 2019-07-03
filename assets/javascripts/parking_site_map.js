@@ -321,7 +321,7 @@ window.addEventListener('DOMContentLoaded', () => {
       'WATERTOWN',
       'WINTHROP'];
     const filteredMunicipalities = data[0].features.filter(municipality => surveyedMunicipalities.includes(municipality.properties.town));
-    const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC_Simp']);
+    const topology = topojson.feature(data[4], data[4].objects['UMN_8cats_ICC_Simp_noLynn']);
     createTownMap(filteredMunicipalities);
     createJobMap(topology.features);
     createTrainMap(data[2]);

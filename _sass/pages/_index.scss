@@ -303,14 +303,19 @@ body {
   scroll-snap-align: start;
 
   &__header {
-    color: #000000;
-    padding-bottom: 1rem;
     border-bottom: 1px solid $body_font;
+    color: #000000;
+    margin-bottom: 0;
+    padding-bottom: 1rem;
   }
 
   &__center {
     width: 28em;
     margin: 0 auto;
+  }
+
+  &__legend {
+    margin-left: -10rem;
   }
 }
 
