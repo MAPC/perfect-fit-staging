@@ -198,6 +198,16 @@ body {
   grid-column-gap: 1rem;
   grid-template-columns: 1fr 1fr;
   margin: 0 4rem;
+
+  &__legend-parent {
+    position: relative;
+  }
+
+  &__legend {
+    position: absolute;
+    margin-left: 4rem;
+    height: 15vh;
+  }
 }
 
 .explainer {
@@ -284,7 +294,7 @@ body {
     color: white;
     display: inline-block;
     font-size: 1rem;
-    padding: 1em 1.7em 1em 0;
+    padding: 1em 1.8em 1em 0;
     text-transform: uppercase;
     width: 7em;
   }

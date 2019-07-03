@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="249" height="160" viewBox="0 0 249 160">
+  <g id="Group_3" data-name="Group 3" transform="translate(-65 -3611)">
+    <text id="Heatmap_Legend_Jobs_" data-name="Heatmap Legend (#Jobs) " transform="translate(65 3611)" fill="#707070" font-size="20" font-family="OpenSans, Open Sans"><tspan x="0" y="21">Heatmap Legend (#Jobs) </tspan></text>
+    <text id="_14_000_53_000_125_000_215_000_" data-name="14,000
+53,000
+125,000
+215,000
+" transform="translate(65 3657)" fill="#707070" font-size="20" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="19">14,000</tspan><tspan x="0" y="43">53,000</tspan><tspan x="0" y="67">125,000</tspan><tspan x="0" y="91">215,000</tspan></text>
+    <text id="_314_000_427_000_537_000_737_000" data-name="314,000
+427,000
+537,000 
+737,000" transform="translate(195 3658)" fill="#707070" font-size="20" font-family="HelveticaNeue, Helvetica Neue"><tspan x="0" y="19">314,000</tspan><tspan x="0" y="43">427,000</tspan><tspan x="0" y="67">537,000 </tspan><tspan x="0" y="91">737,000</tspan></text>
+    <rect id="Rectangle_72" data-name="Rectangle 72" width="21" height="21" transform="translate(273 3732)" fill="#084594"/>
+    <rect id="Rectangle_73" data-name="Rectangle 73" width="21" height="21" transform="translate(273 3706)" fill="#2171b5"/>
+    <rect id="Rectangle_74" data-name="Rectangle 74" width="21" height="21" transform="translate(273 3680)" fill="#4292c6"/>
+    <rect id="Rectangle_75" data-name="Rectangle 75" width="21" height="21" transform="translate(273 3654)" fill="#6baed6"/>
+    <path id="Path_3" data-name="Path 3" d="M0,0H21V21H0Z" transform="translate(144 3732)" fill="#9ecae1"/>
+    <rect id="Rectangle_77" data-name="Rectangle 77" width="21" height="21" transform="translate(144 3706)" fill="#c6dbef"/>
+    <path id="Path_4" data-name="Path 4" d="M0,0H21V21H0Z" transform="translate(144 3680)" fill="#deebf7"/>
+    <rect id="Rectangle_79" data-name="Rectangle 79" width="21" height="21" transform="translate(144 3654)" fill="#fff"/>
+  </g>
+</svg>

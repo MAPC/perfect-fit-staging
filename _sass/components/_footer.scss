@@ -48,6 +48,7 @@
 
   &__link {
     color: $footer-color;
+    text-decoration: none;
   }
 
   &__unordered-list {
@@ -56,5 +57,6 @@
 
   &__list-item {
     list-style-type: none;
+    margin-bottom: .25rem;
   }
 }
