@@ -39,6 +39,13 @@ body {
   position: relative;
 }
 
+.aspect-ratio-box-slides {
+  height: 0;
+  overflow: scroll;
+  padding-top: calc(900 / 1920 * 100%);
+  position: relative;
+}
+
 .aspect-ratio-box-header {
   @include media('small') {
     padding-top: calc(1100 / 621 * 100%);
