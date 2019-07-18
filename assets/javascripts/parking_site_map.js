@@ -222,10 +222,10 @@ function createTable(data) {
     Municipality: 'muni',
     'Parking Supply per Unit': 'park_sup_tot',
     'Parking Demand per Unit': 'park_dem',
+    '% Utilization': 'util_rate',
     '% Affordable Units': 'bldg_affp',
     'Walk Score': 'walk_score',
-    'Total Accessible Employment': 'b_umn_t30jobs',
-    '% Utilization': 'util_rate',
+    'Jobs Accessible by Transit': 'b_umn_t30jobs',
   };
   const headers = table.append('thead')
     .attr('class', 'parking-table__header')
@@ -266,10 +266,10 @@ function createTable(data) {
       row.muni,
       parseFloat(row.park_sup_tot).toFixed(2),
       parseFloat(row.park_dem).toFixed(2),
+      Math.round(+row.util_rate * 100),
       Math.round(+row.bldg_affp * 100),
       row.walk_score,
-      Number(row.b_umn_t30jobs).toLocaleString(),
-      Math.round(+row.util_rate * 100)])
+      Number(row.b_umn_t30jobs).toLocaleString()])
     .enter()
     .append('td')
     .text(d => d)
