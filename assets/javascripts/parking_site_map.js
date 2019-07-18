@@ -49,9 +49,11 @@ function createJobsMapToggle() {
   toggleButton.on('click', (d) => {
     if (d3.select('.parking-map__jobs--hidden').empty() === true) {
       d3.select('.parking-map__jobs').attr('class', 'parking-map__jobs parking-map__jobs--hidden');
+      d3.select('.parking-data__legend').attr('class', 'parking-data__legend parking-data__legend--hidden');
       d3.select('.toggle__jobs').text('Show Jobs Heatmap');
     } else {
       d3.select('.parking-map__jobs--hidden').attr('class', 'parking-map__jobs');
+      d3.select('.parking-data__legend--hidden').attr('class', 'parking-data__legend');
       d3.select('.toggle__jobs').text('Hide Jobs Heatmap');
     }
   });

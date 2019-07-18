@@ -201,12 +201,17 @@ body {
 
   &__legend-parent {
     position: relative;
+    margin-top: 1rem;
   }
 
   &__legend {
     position: absolute;
     margin-left: 4rem;
     height: 15vh;
+
+    &--hidden {
+      visibility: hidden;
+    }
   }
 }
 
