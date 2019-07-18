@@ -297,11 +297,11 @@ function createJobMap(data) {
 
 window.addEventListener('DOMContentLoaded', () => {
   Promise.all([
-    d3.json('/assets/data/ma-munis.json'),
-    d3.csv('/assets/data/perfect-fit-parking-data.csv'),
-    d3.json('/assets/data/mbta-commuter-rail-lines.json'),
-    d3.json('/assets/data/mbta-rapid-transit.json'),
-    d3.json('/assets/data/job-categories-topo.json'),
+    d3.json('./assets/data/ma-munis.json'),
+    d3.csv('./assets/data/perfect-fit-parking-data.csv'),
+    d3.json('./assets/data/mbta-commuter-rail-lines.json'),
+    d3.json('./assets/data/mbta-rapid-transit.json'),
+    d3.json('./assets/data/job-categories-topo.json'),
   ]).then((data) => {
     const surveyedMunicipalities = [
       'ARLINGTON',
